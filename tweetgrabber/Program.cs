@@ -28,10 +28,11 @@ namespace tweetgrabber
         var options = new ListTweetsOnUserTimelineOptions() { UserId = 3183325776, Count = 100, MaxId = null }; //Max ID is the ID of the furthest back tweet
             StringBuilder sb = new StringBuilder();
             int i = 0;
+            int x = 0;
             while (i < 100)
             {
                 var tweets = service.ListTweetsOnUserTimeline(options);
-                int x = 0;
+                
                 foreach (var tweet in tweets)
                 {
                     if (tweet.IsTruncated == false && !tweet.Text.Contains('@'))
@@ -39,6 +40,7 @@ namespace tweetgrabber
                         string text = tweet.Text.Replace("\n", " ");
                         sb.Append(text + "\n");
                         options.MaxId = tweet.Id;
+                        //TRIM URLs OFF TWEETS!
                     }
                     else
                     {
